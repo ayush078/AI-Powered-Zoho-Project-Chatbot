@@ -1,0 +1,11 @@
+streamlit
+fastapi
+uvicorn
+httpx
+pydantic
+python-dotenv
+langchain
+langchain-google-genai
+langgraph
+sqlalchemy
+sqlite-utils
