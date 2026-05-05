@@ -8,6 +8,9 @@ from langgraph.prebuilt import ToolNode
 from tools import ZohoTools
 from models import SessionLocal, ChatHistory, UserPreference
 import json
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
 # Explicitly load environment variables from .env file
 load_dotenv()
@@ -26,12 +29,14 @@ def create_zoho_graph(user_id: int, session_id: str):
         raise ValueError("GOOGLE_API_KEY not found. Please check your .env file.")
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model="gemini-2.5-flash", #-lite
         google_api_key=api_key,
         temperature=0,
-        convert_system_message_to_human=True
+        convert_system_message_to_human=True,
+        max_output_tokens=1024,
+        streaming=True  # Enable streaming for real-time token generation
     )
-
+    
     tools_provider = ZohoTools(user_id=user_id, mock=True)
     query_tools = tools_provider.get_query_tools()
     action_tools = tools_provider.get_action_tools()

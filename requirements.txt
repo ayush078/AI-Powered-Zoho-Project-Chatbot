@@ -9,3 +9,5 @@ langchain-google-genai
 langgraph
 sqlalchemy
 sqlite-utils
+google-generativeai
+langgchain
